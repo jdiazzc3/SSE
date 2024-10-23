@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring SSE</title>
+</head>
+<body>
+    <h1>Spring SSE</h1>
+    <div id="sse"></div>
+    <script>
+        const eventSource = new EventSource('http://localhost:8080/sse');
+        eventSource.onmessage = (event) => {
+            const div = document.createElement('div');
+            div.textContent = `Event receive: ${event.data}`;
+            document.getElementById('sse').appendChild(div);
+        };
+        eventSource.onerror = (error) => {
+            console.error('EventSource failed:', error);
+            eventSource.close();
+        };
+    </script>
+</body>
+</html>
